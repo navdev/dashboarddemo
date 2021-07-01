@@ -1,6 +1,3 @@
-const express = require("express");
-const router = express.Router();
-const dataService = require("../services/data-service");
 const components = {
     "unit1-tgset": "TG SET",
     "unit1-hpu": "HPU",
@@ -19,15 +16,15 @@ const components = {
     "common-waterways": "WATERWAYS"
 };
 
-var tgsetData = {
+const componentData = [{
     type: "tgset",
-    sections : [
+    sections: [
         {
             title: "Turbine",
             widgets: [
                 {
                     title: "WICKET GATE POSITION %",
-                    id:"wicketGatePosition",
+                    id: "wicketGatePosition",
                     type: "gauge",
                     data: {
                         maxValue: 100,
@@ -39,19 +36,19 @@ var tgsetData = {
                         colorStop: '#58D68D',    // just experiment with them
                         strokeColor: '#F7DC6F',  // to see which ones work best for you
                         zones: [
-                            {strokeStyle: "#F03E3E", min: 0, max: 47.5},
-                            {strokeStyle: "#7FFF00", min: 47.5, max: 52.5},
-                            {strokeStyle: "#F03E3E", min: 52.5, max: 60}                            
+                            { strokeStyle: "#F03E3E", min: 0, max: 47.5 },
+                            { strokeStyle: "#7FFF00", min: 47.5, max: 52.5 },
+                            { strokeStyle: "#F03E3E", min: 52.5, max: 60 }
                         ],
                         ticks: {
                             divisions: 2,
-                            subDivisions:0
+                            subDivisions: 0
                         }
                     }
                 },
                 {
                     title: "RUNNER BLADE POSITION %",
-                    id:"runnerBladePosition",
+                    id: "runnerBladePosition",
                     type: "gauge",
                     data: {
                         maxValue: 100,
@@ -63,13 +60,13 @@ var tgsetData = {
                         colorStop: '#58D68D',    // just experiment with them
                         strokeColor: '#F7DC6F',  // to see which ones work best for you
                         zones: [
-                            {strokeStyle: "#F03E3E", min: 0, max: 47.5},
-                            {strokeStyle: "#7FFF00", min: 47.5, max: 52.5},
-                            {strokeStyle: "#F03E3E", min: 52.5, max: 60}                            
-                        ],                        
+                            { strokeStyle: "#F03E3E", min: 0, max: 47.5 },
+                            { strokeStyle: "#7FFF00", min: 47.5, max: 52.5 },
+                            { strokeStyle: "#F03E3E", min: 52.5, max: 60 }
+                        ],
                         ticks: {
                             divisions: 2,
-                            subDivisions:0
+                            subDivisions: 0
                         }
                     }
                 }
@@ -85,26 +82,58 @@ var tgsetData = {
             title: "Strator Core",
         }
     ]
-};
+},
+{
+    type: "hpu",
+    sections: [{
+        title: "HPU Pressure",
+        widgets: [{
+            title: "HPU PRESSURE",
+            id: "hpuPressure",
+            type: "block",
+            data: {
+                value: "LOW",
+            },
 
-function getData(name){
-    switch(name){
-        case "unit1-tgset":
-            return tgsetData;
-        default:
-            return tgsetData;
-    }
-}
-function routeConfig() {
-    router.get("/", (req, res, next) => {
-        res.render("index", { title: "Dashboard App", customerInfo: "VEER , 2 X 4.5 MW", pageTitle: "POWER PLANT STATUS" });
-    });
-    
-    router.get("/componentdetails/:name", (req, res, next) => {
-        const name = req.params.name;
-        res.render("component-details", { title: "Dashboard App", customerInfo: "VEER , 2 X 4.5 MW", componentTitle: dataService.getComponentTitle(name), data: dataService.getComponentData(name) });
-    });
-    return router;
+        }, {
+            title: "HPU PUMP1",
+            id: "hpuPump1",
+            type: "block",
+            data: {
+                value: "ON"
+            }
+        }, {
+            title: "HPU PUMP2",
+            id: "hpuPump2",
+            type: "block",
+            data: {
+                value: "ON"
+            }
+        }]
+    }]
+},
+{
+    type: "default",
+    sections: []
+}];
+
+
+const service = {
+    getComponentTitle: function (name) {
+        return components[name];
+    },
+    getComponentData: function (name) {
+        switch (name) {
+            case "unit1-tgset":
+                return componentData.find(d => d.type === 'tgset');
+            case "unit1-hpu":
+                return componentData.find(d => d.type === 'hpu');
+            default:
+                return componentData.find(d => d.type === 'default');
+        }
+    },
+
 }
 
-module.exports = routeConfig;
+module.exports = service;
+

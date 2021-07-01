@@ -2,8 +2,9 @@ const http = require("http")
 const express = require("express");
 const app = express();
 const exphbs = require('express-handlebars');
-const logger = require("morgan")
-const routes = require("./routes")();
+const logger = require("morgan");
+const handlebarHelpers = require("./handlebarhelpers");
+const routes = require("./routes");
 var path = require('path');
 
 const port=3000;
@@ -18,12 +19,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views")); //Set view path
 app.engine('hbs', exphbs({
     defaultLayout: 'main',
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: handlebarHelpers
 }));
 app.set("view engine", "hbs"); //Set view engine
 
 //Routes
-app.use(routes);
+app.use(routes());
 
 /*
 app.get("/componentdetails/:name", (req, res)=>{
