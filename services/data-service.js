@@ -32,9 +32,7 @@ const componentData = [{
                         currentValue: 50,
                         labels: [0, 50, 100],
                         fractionDigits: 0,
-                        colorStart: '#58D68D',   // Colors
-                        colorStop: '#58D68D',    // just experiment with them
-                        strokeColor: '#F7DC6F',  // to see which ones work best for you
+                        strokeColor: '#85C1E9',  // to see which ones work best for you
                         zones: [
                             { strokeStyle: "#F03E3E", min: 0, max: 47.5 },
                             { strokeStyle: "#7FFF00", min: 47.5, max: 52.5 },
@@ -56,9 +54,7 @@ const componentData = [{
                         currentValue: 50,
                         labels: [0, 50, 100],
                         fractionDigits: 0,
-                        colorStart: '#58D68D',   // Colors
-                        colorStop: '#58D68D',    // just experiment with them
-                        strokeColor: '#F7DC6F',  // to see which ones work best for you
+                        strokeColor: '#85C1E9',  // to see which ones work best for you
                         zones: [
                             { strokeStyle: "#F03E3E", min: 0, max: 47.5 },
                             { strokeStyle: "#7FFF00", min: 47.5, max: 52.5 },
@@ -93,6 +89,7 @@ const componentData = [{
             type: "block",
             data: {
                 value: "LOW",
+                style: "btn-danger"
             },
 
         }, {
@@ -100,14 +97,16 @@ const componentData = [{
             id: "hpuPump1",
             type: "block",
             data: {
-                value: "ON"
+                value: "ON",
+                style: "btn-default"
             }
         }, {
             title: "HPU PUMP2",
             id: "hpuPump2",
             type: "block",
             data: {
-                value: "ON"
+                value: "ON",
+                style: "btn-default"
             }
         }]
     }]

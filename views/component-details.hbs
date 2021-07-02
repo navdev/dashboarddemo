@@ -28,7 +28,10 @@
     <div class="col-lg-4 col-md-6">
         <div class="card dashboard-product fixed-box align-center">
             <span>{{title}}</span>
-            <h2 class="dashboard-total-products">{{data.value}}</h2>
+            <div class="dashboard-total-products">
+                <button type="button" class="display-alert btn {{data.style}} waves-effect waves-light" data-toggle="tooltip"
+                    data-placement="top" title="">{{data.value}}</button>
+            </div>
         </div>
     </div>
     {{/if_eq}}
